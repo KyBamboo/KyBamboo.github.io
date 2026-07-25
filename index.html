@@ -1,0 +1,227 @@
+<!doctype html>
+<!--
+  APEX — personal project hub.  Static, self-contained, zero dependencies.
+  • Rename the "APEX" wordmark below if you land on a different domain.
+  • Each project is one <article class="card">. Add/remove freely.
+  • Placeholders for private/undecided projects are near the bottom (commented out).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APEX — things I build</title>
+<meta name="description" content="Apps, tiny native software, and RF/hardware projects.">
+<style>
+  :root{
+    --bg:#0b1a2c; --bg2:#0e2036; --surface:#132a45; --line:#22405f;
+    --text:#e8eef6; --muted:#9db0c6; --amber:#f5b841; --blue:#4a9de0; --navy:#12325a;
+    --radius:16px; --maxw:1060px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f4f7fb; --bg2:#eef2f8; --surface:#ffffff; --line:#e2e8f2;
+           --text:#0c1b2e; --muted:#5a6a80; --amber:#c9860f; --blue:#2e7dd1; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg));
+    color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+
+  /* ---- hero ---- */
+  header{padding:64px 0 26px}
+  .brand{display:flex; align-items:center; gap:14px}
+  .peak{width:46px;height:46px;flex:0 0 auto}
+  .word{font-size:30px; font-weight:800; letter-spacing:.14em}
+  .word b{color:var(--amber); font-weight:800}
+  h1{font-size:clamp(30px,5vw,52px); line-height:1.08; font-weight:800; margin:26px 0 10px; letter-spacing:-.02em}
+  h1 span{color:var(--amber)}
+  .lede{font-size:clamp(16px,2.2vw,20px); color:var(--muted); max-width:60ch; margin:0}
+
+  /* ---- sections ---- */
+  section{padding:30px 0}
+  .sec-h{display:flex; align-items:baseline; gap:12px; margin:6px 0 18px}
+  .sec-h h2{font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; margin:0}
+  .sec-h .rule{flex:1; height:1px; background:var(--line)}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; display:flex; flex-direction:column; gap:10px; transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{transform:translateY(-3px); border-color:var(--amber); box-shadow:0 10px 30px rgba(0,0,0,.18)}
+  .card h3{margin:0; font-size:19px; font-weight:700}
+  .card p{margin:0; color:var(--muted); font-size:14.5px; flex:1}
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:2px}
+  .chip{font-size:11.5px; font-weight:600; letter-spacing:.02em; color:var(--blue);
+        background:color-mix(in srgb, var(--blue) 14%, transparent); padding:4px 9px; border-radius:8px}
+  .links{display:flex; flex-wrap:wrap; gap:14px; margin-top:4px}
+  .links a{font-size:13.5px; font-weight:600; color:var(--amber); text-decoration:none; border-bottom:1px solid transparent}
+  .links a:hover{border-bottom-color:var(--amber)}
+  .badge{display:inline-block; font-size:11px; font-weight:700; color:var(--bg);
+         background:var(--amber); padding:3px 8px; border-radius:7px; vertical-align:middle; margin-left:8px}
+
+  footer{border-top:1px solid var(--line); margin-top:34px; padding:28px 0 60px; color:var(--muted); font-size:14px}
+  footer .row{display:flex; flex-wrap:wrap; gap:8px 22px; align-items:center; justify-content:space-between}
+  footer a{color:var(--amber); text-decoration:none}
+  .dot{opacity:.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <!-- "apex" peak mark -->
+      <svg class="peak" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M24 5 L44 42 H4 Z" stroke="#f5b841" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M24 5 L33 22 L24 30 L15 22 Z" fill="#f5b841"/>
+      </svg>
+      <div class="word">A<b>P</b>EX</div>
+    </div>
+
+    <h1>Small, fast, <span>hand-built.</span></h1>
+    <p class="lede">A home for the things I make — Android apps, tiny native software, and RF &amp; hardware.
+       No trackers, no fluff.</p>
+  </header>
+
+  <!-- ============ APPS ============ -->
+  <section id="apps">
+    <div class="sec-h"><h2>Apps</h2><div class="rule"></div></div>
+    <div class="grid">
+
+      <article class="card">
+        <h3>GROL &amp; Commercial Radio Prep <span class="badge">Play soon</span></h3>
+        <p>A free, fully-offline Android study app for every FCC commercial radio license —
+           2,800+ real, public-domain questions with flashcards and scored practice tests.
+           No ads, no accounts, no data collected.</p>
+        <div class="chips"><span class="chip">Android</span><span class="chip">Kotlin</span><span class="chip">Compose</span><span class="chip">Education</span></div>
+        <div class="links"><a href="./privacy.html">Privacy policy</a><a href="#">Google Play →</a></div>
+      </article>
+
+      <article class="card">
+        <h3>CallDrop</h3>
+        <p>A one-switch Android app that silently rejects incoming calls from anyone who isn't
+           in your contacts. ~2&nbsp;MB, no AndroidX, no permissions it doesn't need.</p>
+        <div class="chips"><span class="chip">Android</span><span class="chip">Kotlin</span><span class="chip">CallScreeningService</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ FORGE ============ -->
+  <section id="forge">
+    <div class="sec-h"><h2>Forge — tiny native software</h2><div class="rule"></div></div>
+    <div class="grid">
+
+      <article class="card">
+        <h3>ToolForge</h3>
+        <p>A whole toolkit of native Windows utilities in ~250&nbsp;KB of hand-written C:
+           serial terminal, hex editor, log tailer, serial plotter, disk treemap,
+           hash tool, CSV grid, window-tiling hotkeys and more — one shell, no runtime.</p>
+        <div class="chips"><span class="chip">C</span><span class="chip">Win32</span><span class="chip">no-CRT</span></div>
+      </article>
+
+      <article class="card">
+        <h3>PixelForge</h3>
+        <p>A sub-16&nbsp;KB demoscene playground in x86 assembly — plasma, fire, tunnels,
+           rotozoom, Mandelbrot, metaballs, water and starfields, all with hand-rolled
+           fixed-point math and no FPU.</p>
+        <div class="chips"><span class="chip">FASM</span><span class="chip">assembly</span><span class="chip">graphics</span></div>
+      </article>
+
+      <article class="card">
+        <h3>MeshForge &amp; PolyForge</h3>
+        <p>3D modelers built from scratch — a software renderer with z-buffer, box-modeling,
+           parametric feature timeline, BSP booleans and fillets, plus OBJ/STL export —
+           written in assembly and lean C.</p>
+        <div class="chips"><span class="chip">3D</span><span class="chip">CAD</span><span class="chip">C / FASM</span></div>
+      </article>
+
+      <article class="card">
+        <h3>ConnectorForge</h3>
+        <p>A parts picker that generates clean multi-unit connector symbols for KiCad —
+           including a 15&nbsp;KB hand-assembled build with a flat-file catalog and
+           clipboard export.</p>
+        <div class="chips"><span class="chip">EDA</span><span class="chip">KiCad</span><span class="chip">Avalonia</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ RF & HARDWARE ============ -->
+  <section id="hardware">
+    <div class="sec-h"><h2>RF &amp; Hardware</h2><div class="rule"></div></div>
+    <div class="grid">
+
+      <article class="card">
+        <h3>Doppler Chronograph</h3>
+        <p>A 24&nbsp;GHz continuous-wave radar chronograph for measuring projectile speed —
+           edge-launch Vivaldi array and SIW-horn front-end options, phased build.</p>
+        <div class="chips"><span class="chip">RF</span><span class="chip">radar</span><span class="chip">24 GHz</span></div>
+      </article>
+
+      <article class="card">
+        <h3>GPS Clock</h3>
+        <!-- TODO: fill in the real description of your GPS clock build -->
+        <p>A precision clock disciplined to GPS time. <em>— description coming —</em></p>
+        <div class="chips"><span class="chip">GPS</span><span class="chip">electronics</span></div>
+      </article>
+
+      <article class="card">
+        <h3>Antenna &amp; EM design</h3>
+        <p>Electromagnetic simulation and antenna work in openEMS — Vivaldi arrays, SIW horns,
+           and the modeling gotchas that come with them.</p>
+        <div class="chips"><span class="chip">openEMS</span><span class="chip">antennas</span><span class="chip">simulation</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ MARKETS ============ -->
+  <section id="markets">
+    <div class="sec-h"><h2>Markets &amp; charting</h2><div class="rule"></div></div>
+    <div class="grid">
+
+      <article class="card">
+        <h3>Helios</h3>
+        <p>A from-scratch market charting and pattern-recognition dashboard, built on a custom
+           SkiaSharp chart engine that runs on Windows, Linux desktop and Android tablet.
+           Research &amp; educational.</p>
+        <div class="chips"><span class="chip">.NET</span><span class="chip">Avalonia</span><span class="chip">SkiaSharp</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!--
+    ============ DRAFTS / PRIVATE — decide what to make public ============
+    Uncomment & fill in, or delete. Kept out of the live page on purpose.
+
+    <article class="card">
+      <h3>Sneak Trap</h3>
+      <p>— what it is —</p>
+      <div class="chips"><span class="chip">tag</span></div>
+    </article>
+
+    <article class="card">
+      <h3>[the patient project]</h3>
+      <p>— what it is —</p>
+      <div class="chips"><span class="chip">tag</span></div>
+    </article>
+  -->
+
+  <footer>
+    <div class="row">
+      <div>Built by Ky. &nbsp;<span class="dot">·</span>&nbsp; No trackers. No ads.</div>
+      <!-- Add a contact if you want one: -->
+      <div><a href="mailto:hello@example.com">get in touch</a></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
