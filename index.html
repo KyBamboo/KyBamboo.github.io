@@ -1,15 +1,9 @@
 <!doctype html>
-<!--
-  APEX — personal project hub.  Static, self-contained, zero dependencies.
-  • Rename the "APEX" wordmark below if you land on a different domain.
-  • Each project is one <article class="card">. Add/remove freely.
-  • Placeholders for private/undecided projects are near the bottom (commented out).
--->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>APEX — things I build</title>
+<title>KyBamboo — things I build</title>
 <meta name="description" content="Apps, tiny native software, and RF/hardware projects.">
 <style>
   :root{
@@ -35,7 +29,7 @@
   header{padding:64px 0 26px}
   .brand{display:flex; align-items:center; gap:14px}
   .peak{width:46px;height:46px;flex:0 0 auto}
-  .word{font-size:30px; font-weight:800; letter-spacing:.14em}
+  .word{font-size:30px; font-weight:800; letter-spacing:.01em}
   .word b{color:var(--amber); font-weight:800}
   h1{font-size:clamp(30px,5vw,52px); line-height:1.08; font-weight:800; margin:26px 0 10px; letter-spacing:-.02em}
   h1 span{color:var(--amber)}
@@ -75,17 +69,22 @@
 
   <header>
     <div class="brand">
-      <!-- "apex" peak mark -->
+      <!-- bamboo mark -->
       <svg class="peak" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <path d="M24 5 L44 42 H4 Z" stroke="#f5b841" stroke-width="3.2" stroke-linejoin="round"/>
-        <path d="M24 5 L33 22 L24 30 L15 22 Z" fill="#f5b841"/>
+        <!-- segmented cane -->
+        <rect x="15.5" y="8" width="9" height="36" rx="4.5" stroke="#f5b841" stroke-width="3"/>
+        <line x1="15.5" y1="20" x2="24.5" y2="20" stroke="#f5b841" stroke-width="3" stroke-linecap="round"/>
+        <line x1="15.5" y1="32" x2="24.5" y2="32" stroke="#f5b841" stroke-width="3" stroke-linecap="round"/>
+        <!-- leaves -->
+        <ellipse cx="33" cy="12" rx="9" ry="3" fill="#f5b841" transform="rotate(-33 33 12)"/>
+        <ellipse cx="32" cy="19.5" rx="7" ry="2.6" fill="#f5b841" transform="rotate(-10 32 19.5)"/>
       </svg>
-      <div class="word">A<b>P</b>EX</div>
+      <div class="word">Ky<b>B</b>amboo</div>
     </div>
 
     <h1>Small, fast, <span>hand-built.</span></h1>
     <p class="lede">A home for the things I make — Android apps, tiny native software, and RF &amp; hardware.
-       No trackers, no fluff.</p>
+       No fluff.</p>
   </header>
 
   <!-- ============ APPS ============ -->
@@ -96,8 +95,7 @@
       <article class="card">
         <h3>GROL &amp; Commercial Radio Prep <span class="badge">Play soon</span></h3>
         <p>A free, fully-offline Android study app for every FCC commercial radio license —
-           2,800+ real, public-domain questions with flashcards and scored practice tests.
-           No ads, no accounts, no data collected.</p>
+           2,800+ real, public-domain questions with flashcards and scored practice tests.</p>
         <div class="chips"><span class="chip">Android</span><span class="chip">Kotlin</span><span class="chip">Compose</span><span class="chip">Education</span></div>
         <div class="links"><a href="./privacy.html">Privacy policy</a><a href="#">Google Play →</a></div>
       </article>
@@ -216,7 +214,7 @@
 
   <footer>
     <div class="row">
-      <div>Built by Ky. &nbsp;<span class="dot">·</span>&nbsp; No trackers. No ads.</div>
+      <div>Built by Ky.</div>
       <!-- Add a contact if you want one: -->
       <div><a href="mailto:218636150+KyBamboo@users.noreply.github.com">get in touch</a></div>
     </div>
