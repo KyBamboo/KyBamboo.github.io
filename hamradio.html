@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ham Radio License Prep — KyBamboo</title>
+<meta name="description" content="Free, offline Android study app for all three US amateur radio license exams — Technician, General & Amateur Extra. 1,438 real NCVEC questions, flashcards, and practice tests. No ads, no tracking.">
+<style>
+  :root{
+    --bg:#08202a; --bg2:#0b2a33; --surface:#0f2e37; --line:#1c4650;
+    --text:#e6f2f4; --muted:#9fbdc4; --teal:#37c6d4; --teal-ink:#052226; --radius:16px; --maxw:1000px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f2f7f8; --bg2:#e9f1f2; --surface:#ffffff; --line:#d8e6e8;
+           --text:#06232a; --muted:#4a6b72; --teal:#0c6e78; --teal-ink:#ffffff; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:linear-gradient(180deg,var(--bg),var(--bg2) 55%,var(--bg));
+       color:var(--text); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  a{color:var(--teal)}
+  .back{display:inline-block; margin:26px 0 6px; color:var(--teal); text-decoration:none; font-weight:600}
+
+  /* hero */
+  .hero{display:flex; gap:22px; align-items:center; flex-wrap:wrap; padding:14px 0 8px}
+  .icon{width:96px; height:96px; border-radius:22px; flex:0 0 auto; box-shadow:0 8px 24px rgba(0,0,0,.25)}
+  .hero h1{font-size:clamp(26px,4.5vw,40px); line-height:1.1; margin:0 0 6px; letter-spacing:-.02em}
+  .tagline{color:var(--muted); font-size:clamp(15px,2.2vw,18px); margin:0 0 12px; max-width:52ch}
+  .badges{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px}
+  .badges span{font-size:12px; font-weight:700; letter-spacing:.02em; color:var(--teal);
+       background:color-mix(in srgb, var(--teal) 15%, transparent); padding:5px 11px; border-radius:999px}
+  .cta{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .btn{display:inline-block; text-decoration:none; font-weight:700; border-radius:12px; padding:12px 20px}
+  .btn.primary{background:var(--teal); color:var(--teal-ink)}
+  .btn.ghost{border:1px solid var(--line); color:var(--text)}
+  .sub{color:var(--muted); font-size:13px; margin-top:8px}
+
+  /* screenshots */
+  .shots{display:flex; gap:16px; overflow-x:auto; padding:26px 2px 12px; scroll-snap-type:x mandatory}
+  .shots img{width:230px; height:auto; border-radius:18px; border:1px solid var(--line);
+       box-shadow:0 10px 30px rgba(0,0,0,.22); scroll-snap-align:center; flex:0 0 auto}
+  .shots::-webkit-scrollbar{height:8px}
+  .shots::-webkit-scrollbar-thumb{background:var(--line); border-radius:8px}
+
+  section{padding:26px 0}
+  h2{font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:700; margin:0 0 16px}
+  .feat{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px}
+  .feat .item{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+  .feat .item b{display:block; margin-bottom:3px}
+  .feat .item p{margin:0; color:var(--muted); font-size:14px}
+  .box{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--teal);
+       border-radius:12px; padding:18px 20px; margin:8px 0}
+
+  /* classes table */
+  .classes{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+  .cls{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+  .cls .pill{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--teal);
+       background:color-mix(in srgb, var(--teal) 15%, transparent); padding:3px 9px; border-radius:999px; margin-bottom:8px}
+  .cls b{font-size:17px}
+  .cls .meta{color:var(--muted); font-size:13.5px; margin:4px 0 0}
+  footer{border-top:1px solid var(--line); margin-top:28px; padding:24px 0 60px; color:var(--muted); font-size:14px}
+  footer a{color:var(--teal); text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./index.html">← KyBamboo</a>
+
+  <div class="hero">
+    <img class="icon" src="./img/ham-icon.png" alt="Ham Radio License Prep icon">
+    <div>
+      <h1>Ham Radio License Prep</h1>
+      <p class="tagline">Free, offline flashcards &amp; practice tests for <em>all three</em> US amateur
+         radio license exams — built on the real, public-domain NCVEC question pools.</p>
+      <div class="badges"><span>Free</span><span>100% offline</span><span>No ads</span><span>No tracking</span><span>1,438 questions</span></div>
+      <div class="cta">
+        <!-- Once the app is in Google Play testing, swap this for:
+             <a class="btn primary" href="https://play.google.com/apps/testing/com.kybamboo.hamradio">Join the beta test →</a> -->
+        <span class="btn primary" style="cursor:default">Coming to Google Play</span>
+        <a class="btn ghost" href="./privacy.html">Privacy</a>
+      </div>
+      <p class="sub">Android · Technician, General &amp; Amateur Extra · preparing for Google Play launch.</p>
+    </div>
+  </div>
+
+  <div class="shots">
+    <img src="./img/ham-screen-1-home.jpg" alt="Home — choose your license class" loading="lazy">
+    <img src="./img/ham-screen-2-chooser.jpg" alt="Help me choose the right class" loading="lazy">
+    <img src="./img/ham-screen-3-detail.jpg" alt="License class detail and upgrade path" loading="lazy">
+    <img src="./img/ham-screen-4-flashcard.jpg" alt="Flashcard question" loading="lazy">
+    <img src="./img/ham-screen-5-answer.jpg" alt="Flashcard answer revealed" loading="lazy">
+    <img src="./img/ham-screen-6-diagram.jpg" alt="Question with a bundled schematic figure" loading="lazy">
+    <img src="./img/ham-screen-7-test.jpg" alt="Practice test with instant feedback" loading="lazy">
+  </div>
+
+  <section>
+    <h2>What's inside</h2>
+    <div class="feat">
+      <div class="item"><b>1,438 real questions</b><p>The complete, current NCVEC question pools for all three license classes — nothing paraphrased or trimmed.</p></div>
+      <div class="item"><b>Flashcards</b><p>Tap-to-flip reveal with animated progress rings so you can see what you've learned.</p></div>
+      <div class="item"><b>Practice tests</b><p>Same question count and passing mark as the real exam, scored with instant right/wrong feedback.</p></div>
+      <div class="item"><b>Fully resumable</b><p>Leave a test and pick up exactly where you left off — nothing lost.</p></div>
+      <div class="item"><b>Every diagram included</b><p>Antenna patterns, circuit diagrams, a Smith chart and component symbols sit right on the question that needs them.</p></div>
+      <div class="item"><b>Help me choose</b><p>A built-in guide maps your goal to a license class — and clears up myths like the retired Morse code requirement.</p></div>
+      <div class="item"><b>Upgrade path</b><p>See what each class unlocks and how you climb: Technician → General → Amateur Extra.</p></div>
+      <div class="item"><b>Private by design</b><p>No internet permission at all. No ads, no accounts, no tracking, nothing collected.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>License classes covered</h2>
+    <div class="classes">
+      <div class="cls">
+        <span class="pill">TECH</span>
+        <b>Technician</b>
+        <p class="meta">409-question pool · exam 35 Q, pass 26 · entry-level VHF/UHF · pool 2026–2030</p>
+      </div>
+      <div class="cls">
+        <span class="pill">GEN</span>
+        <b>General</b>
+        <p class="meta">426-question pool · exam 35 Q, pass 26 · most HF worldwide · pool 2023–2027</p>
+      </div>
+      <div class="cls">
+        <span class="pill">EXTRA</span>
+        <b>Amateur Extra</b>
+        <p class="meta">603-question pool · exam 50 Q, pass 37 · every privilege · pool 2024–2028</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="box">
+    <strong>Coming soon.</strong> Ham Radio License Prep is getting ready for Google Play. Check
+    back here for a testing link, or see the <a href="./privacy.html">privacy policy</a> in the
+    meantime.
+  </div>
+
+  <footer>
+    <a href="./index.html">← KyBamboo</a> &nbsp;·&nbsp; <a href="./privacy.html">Privacy policy</a>
+    &nbsp;·&nbsp; Question pools authored by the NCVEC QPC and released to the public domain.
+    Not affiliated with or endorsed by the NCVEC, ARRL, or FCC.
+  </footer>
+</div>
+</body>
+</html>
