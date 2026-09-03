@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Screen Active Tool</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0c0c0c;
+            color: #ffffff;
+            overflow: hidden;
+            transition: background-color 0.8s ease;
+        }
+        .container {
+            text-align: center;
+            padding: 2.5rem;
+            border-radius: 16px;
+            background-color: #161616;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            z-index: 10;
+            border: 1px solid #2a2a2a;
+            width: 380px;
+        }
+        button {
+            padding: 14px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #2563eb;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            width: 100%;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        #status {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .log-container {
+            margin-top: 1.5rem;
+            background-color: #050505;
+            border: 1px solid #222;
+            border-radius: 6px;
+            padding: 10px;
+            height: 120px;
+            overflow-y: auto;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #a3a3a3;
+        }
+        .log-entry {
+            margin: 3px 0;
+            line-height: 1.2;
+        }
+        .glow-orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.15); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 0.4; }
+        }
+        .active-glow {
+            opacity: 1 !important;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(0,0,0,0) 70%);
+            animation: pulse 4s infinite ease-in-out;
+        }
+        .active-text { color: #10b981; }
+        .inactive-text { color: #ef4444; }
+        .warning-text { color: #f59e0b; }
+        video { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="visualGlow" class="glow-orb"></div>
+
+    <video id="fallbackVideo" loop muted playsinline preload="auto">
+        <source src="data:video/mp4;base64,AAAAIGZ0eXBtcDQyAAAAAG1wZDJsY21zMgAAAChtb292AAAAbG12aGQAAAAA0k53ZdJOd2UAAAMgAAACWAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAB1dHJhawAAXHRraGQAAAAH0k53ZdJOd2UAAAABAAAAAAAAAlgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAJDW1kaWEAAAAgbWRoZAAAAADSdndl0nZ3ZQAAH0AAAAOAAVcQAAAAGWhkbHIAAAAAAAAAAHZpZGVhbWVkaWEAAAAAAAABM21pbmYAAAAlbhorizontalAGhkcgAAAAQAAAAAABxkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAxtdXJsAAAAAQAAARNzdGJsAAAAb3N0c2QAAAAAAAAAAQAAASttcDR2AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAHgAHABIAAAASAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGG1hZHMAAAAAAAAAGGVzZHMAAAAAA4CAgB0AAv8CAwIABwAFAQAAAGFzdGNvAAAAAAAAAAEAAAAQAAAAYnN0c3oAAAAAAAAADwAAAAYAAAAGAAAABgAAAAYAAAAGAAAABgAAAAYAAAAGAAAABgAAAAYAAAAGAAAABgAAAAYAAAAGAAAABgAAAB5c3RzYwAAAAAAAAABAAAAAQAAAAEAAAABAAAAFHN0dHMAAAAAAAAAAQAAAAEAAAAQAAAAHHN0Y28AAAAAAAAAAQAAADAAAAAYdXVpZEd1aWQAAAAA" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <h2>System Wake Framework</h2>
+        <button id="toggleBtn">Engage Wake Lock</button>
+        <div id="status" class="inactive-text">System Sleep: Enabled</div>
+        
+        <div class="log-container" id="logContainer">
+            <div class="log-entry">[Framework Core Loaded]</div>
+        </div>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('toggleBtn');
+        const statusDiv = document.getElementById('status');
+        const visualGlow = document.getElementById('visualGlow');
+        const fallbackVideo = document.getElementById('fallbackVideo');
+        const logContainer = document.getElementById('logContainer');
+        
+        let wakeLock = null;
+        let userWantsActive = false;
+        let videoPlayPromise = null;
+
+        function logEvent(message, color = '#a3a3a3') {
+            const now = new Date();
+            const timeStr = now.toTimeString().split(' ')[0];
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.style.color = color;
+            entry.textContent = `[${timeStr}] ${message}`;
+            logContainer.appendChild(entry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        async function activateWakeSystem() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    
+                    // Listen for automatic drop events from the browser environment
+                    wakeLock.addEventListener('release', () => {
+                        if (userWantsActive && document.visibilityState !== 'visible') {
+                            logEvent("⚠️ Wake Lock auto-released by browser.", "#f59e0b");
+                            updateBackgroundSleepUI();
+                        }
+                    });
+                }
+
+                // Safe asynchronous evaluation of the underlying media driver loop
+                videoPlayPromise = fallbackVideo.play();
+                if (videoPlayPromise !== undefined) {
+                    videoPlayPromise.then(() => {
+                        logEvent("⚡ Lock fully active and protected.", "#10b981");
+                    }).catch(err => {
+                        logEvent(`ℹ️ Media engine handled release gracefully.`, "#a3a3a3");
+                    });
+                }
+
+                updateActiveUI();
+
+            } catch (err) {
+                logEvent(`❌ Initialization failed: ${err.message}`, "#e11d48");
+            }
+        }
+
+        function deactivateWakeSystem() {
+            logEvent("🛑 Manual teardown requested by operator.", "#ef4444");
+            
+            if (wakeLock !== null) {
+                wakeLock.release();
+                wakeLock = null;
+            }
+
+            // Safe video stop check to eliminate DOMException race scenarios
+            if (videoPlayPromise !== null) {
+                videoPlayPromise.then(() => {
+                    fallbackVideo.pause();
+                }).catch(() => {
+                    fallbackVideo.pause();
+                });
+            } else {
+                fallbackVideo.pause();
+            }
+
+            updateInactiveUI();
+        }
+
+        function updateActiveUI() {
+            statusDiv.textContent = "System Sleep: Inhibited 💡";
+            statusDiv.className = "active-text";
+            toggleBtn.textContent = "Release System";
+            toggleBtn.style.backgroundColor = "#10b981";
+            visualGlow.className = "glow-orb active-glow";
+            document.body.style.backgroundColor = "#070f0a";
+        }
+
+        function updateInactiveUI() {
+            statusDiv.textContent = "System Sleep: Enabled";
+            statusDiv.className = "inactive-text";
+            toggleBtn.textContent = "Engage Wake Lock";
+            toggleBtn.style.backgroundColor = "#2563eb";
+            visualGlow.className = "glow-orb";
+            document.body.style.backgroundColor = "#0c0c0c";
+        }
+
+        function updateBackgroundSleepUI() {
+            statusDiv.textContent = "System Sleep: Enabled (Background Mode)";
+            statusDiv.className = "warning-text";
+            visualGlow.className = "glow-orb"; 
+            document.body.style.backgroundColor = "#1a120c"; // Turns dark amber
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            if (!userWantsActive) {
+                userWantsActive = true;
+                activateWakeSystem();
+            } else {
+                userWantsActive = false;
+                deactivateWakeSystem();
+            }
+        });
+
+        // Tracks background cycles securely without interrupting core tasks
+        document.addEventListener('visibilitychange', () => {
+            if (!userWantsActive) return;
+
+            if (document.visibilityState === 'visible') {
+                logEvent("🔄 Focus restored. Restoring system parameters...", "#3b82f6");
+                // Delay allows you to witness the "Enabled (Background Mode)" shift on screen
+                setTimeout(async () => {
+                    await activateWakeSystem();
+                }, 400);
+            } else {
+                logEvent("🙈 Window hidden. Allowing system sleep protocols.", "#f59e0b");
+                updateBackgroundSleepUI();
+                
+                // Gracefully pause media during window drops to keep memory clear
+                if (videoPlayPromise !== null) {
+                    videoPlayPromise.then(() => fallbackVideo.pause()).catch(() => {});
+                }
+            }
+        });
+    </script>
+</body>
+</html>
